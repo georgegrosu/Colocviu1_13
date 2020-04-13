@@ -17,12 +17,13 @@ import ro.pub.cs.systems.eim.Colocviu1_13.R;
 import ro.pub.cs.systems.eim.Colocviu1_13.general.Constants;
 import ro.pub.cs.systems.eim.Colocviu1_13.service.Colocviu1_13Service;
 
-public class Colocviu1_13MainActivity​ extends AppCompatActivity {
+public class Colocviu1_13MainActivity extends AppCompatActivity {
     private EditText historyEditText;
     private Button northButton;
     private Button southButton;
     private Button eastButton;
     private Button westButton;
+    private Button nextButton;
 
     private ButtonClickListener buttonClickListener = new ButtonClickListener();
     private int clicksNo = 0;
@@ -41,11 +42,13 @@ public class Colocviu1_13MainActivity​ extends AppCompatActivity {
         southButton = (Button)findViewById(R.id.south_button);
         westButton = (Button)findViewById(R.id.west_button);
         eastButton = (Button)findViewById(R.id.east_button);
+        nextButton = (Button)findViewById(R.id.next_button);
 
         northButton.setOnClickListener(buttonClickListener);
         southButton.setOnClickListener(buttonClickListener);
         eastButton.setOnClickListener(buttonClickListener);
         westButton.setOnClickListener(buttonClickListener);
+        nextButton.setOnClickListener(buttonClickListener);
 
         if (savedInstanceState != null) {
             clicksNo = savedInstanceState.getInt(Constants.CLICKS_NO);

@@ -50,7 +50,7 @@
                 android:layout_height="wrap_content"
                 android:layout_row="2"
                 android:layout_column="1"
-                android:text="@string/north_button" />
+                android:text="@string/south_button" />
 
         </GridLayout>
 
