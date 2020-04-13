@@ -17,6 +17,9 @@ public class Colocviu1_13MainActivity​ extends AppCompatActivity {
     private Button eastButton;
     private Button westButton;
 
+    private ButtonClickListener buttonClickListener = new ButtonClickListener();
+    private int clicksNo = 0;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -28,7 +31,10 @@ public class Colocviu1_13MainActivity​ extends AppCompatActivity {
         westButton = (Button)findViewById(R.id.west_button);
         eastButton = (Button)findViewById(R.id.east_button);
 
-
+        northButton.setOnClickListener(buttonClickListener);
+        southButton.setOnClickListener(buttonClickListener);
+        eastButton.setOnClickListener(buttonClickListener);
+        westButton.setOnClickListener(buttonClickListener);
     }
 
     private void setHistoryEditText(String direction) {
@@ -43,14 +49,19 @@ public class Colocviu1_13MainActivity​ extends AppCompatActivity {
         public void onClick(View v) {
             switch (v.getId()) {
                 case R.id.north_button:
+                    setHistoryEditText(getResources().getString(R.string.north_button));
                     break;
                 case R.id.south_button:
+                    setHistoryEditText(getResources().getString(R.string.south_button));
                     break;
                 case R.id.east_button:
+                    setHistoryEditText(getResources().getString(R.string.east_button));
                     break;
                 case R.id.west_button:
+                    setHistoryEditText(getResources().getString(R.string.west_button));
                     break;
             }
+            clicksNo += 1;
         }
     }
 }
