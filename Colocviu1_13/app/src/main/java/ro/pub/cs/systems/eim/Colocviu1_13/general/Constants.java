@@ -9,4 +9,5 @@ public interface Constants {
     final public static String BROADCAST_RECEIVER_TAG = "[Message]";
     final public static int SERVICE_STARTED = 1;
     final public static int SERVICE_STOPPED = 0;
+    final public static String SERVICE_ACTION = "broadcast";
 }

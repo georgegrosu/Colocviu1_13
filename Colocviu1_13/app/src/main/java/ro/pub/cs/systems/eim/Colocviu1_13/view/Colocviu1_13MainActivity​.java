@@ -2,8 +2,12 @@ package ro.pub.cs.systems.eim.Colocviu1_13.view;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -11,6 +15,7 @@ import android.widget.Toast;
 
 import ro.pub.cs.systems.eim.Colocviu1_13.R;
 import ro.pub.cs.systems.eim.Colocviu1_13.general.Constants;
+import ro.pub.cs.systems.eim.Colocviu1_13.service.Colocviu1_13Service;
 
 public class Colocviu1_13MainActivity​ extends AppCompatActivity {
     private EditText historyEditText;
@@ -21,6 +26,10 @@ public class Colocviu1_13MainActivity​ extends AppCompatActivity {
 
     private ButtonClickListener buttonClickListener = new ButtonClickListener();
     private int clicksNo = 0;
+    private int serviceStatus;
+
+    private MessageBroadcastReceiver messageBroadcastReceiver = new MessageBroadcastReceiver();
+    private IntentFilter intentFilter = new IntentFilter();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,6 +50,28 @@ public class Colocviu1_13MainActivity​ extends AppCompatActivity {
         if (savedInstanceState != null) {
             clicksNo = savedInstanceState.getInt(Constants.CLICKS_NO);
         }
+
+        serviceStatus = Constants.SERVICE_STOPPED;
+        intentFilter.addAction(Constants.SERVICE_ACTION);
+    }
+
+    @Override
+    protected void onDestroy() {
+        Intent intent = new Intent(this, Colocviu1_13Service.class);
+        stopService(intent);
+        super.onDestroy();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        registerReceiver(messageBroadcastReceiver, intentFilter);
+    }
+
+    @Override
+    protected void onPause() {
+        unregisterReceiver(messageBroadcastReceiver);
+        super.onPause();
     }
 
     @Override
@@ -97,6 +128,20 @@ public class Colocviu1_13MainActivity​ extends AppCompatActivity {
                     break;
             }
             Toast.makeText(getApplicationContext(), clicksNo + "buttons pressed", Toast.LENGTH_LONG).show();
+
+            if (historyEditText.getText().toString().split(",").length == 4 && serviceStatus == Constants.SERVICE_STOPPED) {
+                Intent intent1 = new Intent(getApplicationContext(), Colocviu1_13Service.class);
+                intent1.putExtra(Constants.HISTORY, historyEditText.getText().toString());
+                getApplicationContext().startService(intent1);
+                serviceStatus = Constants.SERVICE_STARTED;
+            }
+        }
+    }
+
+    private class MessageBroadcastReceiver extends BroadcastReceiver {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            Log.d(Constants.BROADCAST_RECEIVER_TAG, intent.getStringExtra(Constants.BROADCAST_RECEIVER_EXTRA));
         }
     }
 }
