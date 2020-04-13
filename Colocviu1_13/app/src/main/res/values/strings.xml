@@ -5,4 +5,6 @@
     <string name="south_button">SOUTH</string>
     <string name="west_button">WEST​</string>
     <string name="secondary_activity_button">GO TO SECONDARY ACTIVITY</string>
+    <string name="register_button">Register</string>
+    <string name="cancel_button">Cancel</string>
 </resources>
