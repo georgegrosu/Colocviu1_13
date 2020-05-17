@@ -1,2 +1,1 @@
-# Grosu George-Mircea
-## 342C3
+# Colocviu 1 EIM
